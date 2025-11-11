@@ -1,251 +1,291 @@
 ---
-
-description: "Task list template for feature implementation"
+description: '기능 구현을 위한 태스크 목록 템플릿'
 ---
 
-# Tasks: [FEATURE NAME]
+# 태스크: [FEATURE NAME]
 
-**Input**: Design documents from `/specs/[###-feature-name]/`
-**Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
+**입력**: `/specs/[###-feature-name]/`의 설계 문서
+**선행조건**: plan.md (필수), spec.md (사용자 스토리에 필수), research.md, data-model.md, contracts/
 
-**Tests**: The examples below include test tasks. Tests are OPTIONAL - only include them if explicitly requested in the feature specification.
+**테스트**: 아래 예시에는 테스트 태스크가 포함됩니다. 테스트는 선택사항 - 기능 명세서에 명시적으로 요청된 경우에만 포함하세요.
 
-**Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
+**구성**: 태스크는 각 스토리의 독립적인 구현 및 테스트를 가능하게 하기 위해 사용자 스토리별로 그룹화됩니다.
 
-## Format: `[ID] [P?] [Story] Description`
+## 형식: `[ID] [P?] [Story] 설명`
 
-- **[P]**: Can run in parallel (different files, no dependencies)
-- **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3)
-- Include exact file paths in descriptions
+- **[P]**: 병렬 실행 가능 (다른 파일, 의존성 없음)
+- **[Story]**: 이 태스크가 속한 사용자 스토리 (예: US1, US2, US3)
+- 설명에 정확한 파일 경로 포함
 
-## Path Conventions
+## 경로 규칙
 
-- **Single project**: `src/`, `tests/` at repository root
-- **Web app**: `backend/src/`, `frontend/src/`
-- **Mobile**: `api/src/`, `ios/src/` or `android/src/`
-- Paths shown below assume single project - adjust based on plan.md structure
+- **Next.js + FSD**: 라우트는 `app/`, `src/features/`, `src/entities/`, `src/shared/` 등
+- **대안**: 루트에 `features/`, `entities/`, `shared/`가 있는 플랫 구조
+- **테스트**: 구현과 함께 위치 (예: `features/auth/ui/__tests__/`)
+- 아래 표시된 경로는 FSD 구조를 가정 - plan.md에 따라 조정
 
-<!-- 
+<!--
   ============================================================================
-  IMPORTANT: The tasks below are SAMPLE TASKS for illustration purposes only.
-  
-  The /speckit.tasks command MUST replace these with actual tasks based on:
-  - User stories from spec.md (with their priorities P1, P2, P3...)
-  - Feature requirements from plan.md
-  - Entities from data-model.md
-  - Endpoints from contracts/
-  
-  Tasks MUST be organized by user story so each story can be:
-  - Implemented independently
-  - Tested independently
-  - Delivered as an MVP increment
-  
-  DO NOT keep these sample tasks in the generated tasks.md file.
+  중요: 아래 태스크는 예시 목적의 샘플 태스크입니다.
+
+  /speckit.tasks 명령은 다음을 기반으로 실제 태스크로 교체해야 합니다:
+  - spec.md의 사용자 스토리 (우선순위 P1, P2, P3...)
+  - plan.md의 기능 요구사항
+  - data-model.md의 엔티티
+  - contracts/의 엔드포인트
+
+  태스크는 각 스토리가 다음을 수행할 수 있도록 사용자 스토리별로 구성되어야 합니다:
+  - 독립적으로 구현
+  - 독립적으로 테스트
+  - MVP 증분으로 전달
+
+  생성된 tasks.md 파일에 이러한 샘플 태스크를 유지하지 마세요.
   ============================================================================
 -->
 
-## Phase 1: Setup (Shared Infrastructure)
+## Phase 1: 설정 (공유 인프라)
 
-**Purpose**: Project initialization and basic structure
+**목적**: 프로젝트 초기화 및 FSD 구조
 
-- [ ] T001 Create project structure per implementation plan
-- [ ] T002 Initialize [language] project with [framework] dependencies
-- [ ] T003 [P] Configure linting and formatting tools
-
----
-
-## Phase 2: Foundational (Blocking Prerequisites)
-
-**Purpose**: Core infrastructure that MUST be complete before ANY user story can be implemented
-
-**⚠️ CRITICAL**: No user story work can begin until this phase is complete
-
-Examples of foundational tasks (adjust based on your project):
-
-- [ ] T004 Setup database schema and migrations framework
-- [ ] T005 [P] Implement authentication/authorization framework
-- [ ] T006 [P] Setup API routing and middleware structure
-- [ ] T007 Create base models/entities that all stories depend on
-- [ ] T008 Configure error handling and logging infrastructure
-- [ ] T009 Setup environment configuration management
-
-**Checkpoint**: Foundation ready - user story implementation can now begin in parallel
+- [ ] T001 구현 계획에 따른 FSD 디렉토리 구조 생성 (features/, entities/, shared/)
+- [ ] T002 필요한 라우트로 Next.js App Router 구조 초기화
+- [ ] T003 [P] FSD를 위한 TypeScript strict 모드 및 경로 별칭 설정
+- [ ] T004 [P] Next.js 및 FSD import 규칙과 함께 ESLint 설정
 
 ---
 
-## Phase 3: User Story 1 - [Title] (Priority: P1) 🎯 MVP
+## Phase 2: 기반 (차단 선행조건)
 
-**Goal**: [Brief description of what this story delivers]
+**목적**: 모든 사용자 스토리 구현 전에 완료되어야 하는 핵심 인프라
 
-**Independent Test**: [How to verify this story works on its own]
+**⚠️ 중요**: 이 단계가 완료될 때까지 사용자 스토리 작업을 시작할 수 없습니다
 
-### Tests for User Story 1 (OPTIONAL - only if tests requested) ⚠️
+기반 태스크 예시 (프로젝트에 따라 조정):
 
-> **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
+- [ ] T005 `shared/ui/`에 공유 UI 컴포넌트 설정 (Button, Input 등)
+- [ ] T006 [P] `entities/[entity]/model/types.ts`에 기본 엔티티 타입 생성
+- [ ] T007 [P] `shared/api/client.ts`에 API 클라이언트 설정
+- [ ] T008 `shared/config/`에 환경 변수 및 공유 설정 구성
+- [ ] T009 `shared/lib/errors/`에 에러 처리 유틸리티 설정
+- [ ] T010 `app/providers/`에 앱 프로바이더 생성 (Theme, Auth 등)
+- [ ] T011 [P] `shared/types/`에 전역 타입 설정
 
-- [ ] T010 [P] [US1] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T011 [P] [US1] Integration test for [user journey] in tests/integration/test_[name].py
-
-### Implementation for User Story 1
-
-- [ ] T012 [P] [US1] Create [Entity1] model in src/models/[entity1].py
-- [ ] T013 [P] [US1] Create [Entity2] model in src/models/[entity2].py
-- [ ] T014 [US1] Implement [Service] in src/services/[service].py (depends on T012, T013)
-- [ ] T015 [US1] Implement [endpoint/feature] in src/[location]/[file].py
-- [ ] T016 [US1] Add validation and error handling
-- [ ] T017 [US1] Add logging for user story 1 operations
-
-**Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
+**체크포인트**: 기반 준비 완료 - 이제 기능 구현을 병렬로 시작할 수 있음
 
 ---
 
-## Phase 4: User Story 2 - [Title] (Priority: P2)
+## Phase 3: 사용자 스토리 1 - [제목] (우선순위: P1) 🎯 MVP
 
-**Goal**: [Brief description of what this story delivers]
+**목표**: [이 스토리가 제공하는 것에 대한 간단한 설명]
 
-**Independent Test**: [How to verify this story works on its own]
+**독립 테스트**: [이 스토리가 독립적으로 작동하는지 검증하는 방법]
 
-### Tests for User Story 2 (OPTIONAL - only if tests requested) ⚠️
+### 사용자 스토리 1 테스트 (선택사항 - 테스트가 요청된 경우에만) ⚠️
 
-- [ ] T018 [P] [US2] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T019 [P] [US2] Integration test for [user journey] in tests/integration/test_[name].py
+> **참고: 이 테스트를 먼저 작성하고, 구현 전에 실패하는지 확인하세요**
 
-### Implementation for User Story 2
+- [ ] T012 [P] [US1] `features/[feature]/ui/__tests__/`에 [Feature UI]의 컴포넌트 테스트
+- [ ] T013 [P] [US1] `app/api/[route]/__tests__/`에 API 라우트 테스트
+- [ ] T014 [P] [US1] `__tests__/integration/`에 [user journey]의 통합 테스트
 
-- [ ] T020 [P] [US2] Create [Entity] model in src/models/[entity].py
-- [ ] T021 [US2] Implement [Service] in src/services/[service].py
-- [ ] T022 [US2] Implement [endpoint/feature] in src/[location]/[file].py
-- [ ] T023 [US2] Integrate with User Story 1 components (if needed)
+### 사용자 스토리 1 구현
 
-**Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
+**엔티티 (비즈니스 객체)**:
 
----
+- [ ] T015 [P] [US1] `entities/[entity]/model/types.ts`에 [Entity] 타입 생성
+- [ ] T016 [P] [US1] `entities/[entity]/api/`에 [Entity] API 생성
+- [ ] T017 [P] [US1] `entities/[entity]/ui/`에 [Entity] UI 컴포넌트 생성
+- [ ] T018 [US1] `entities/[entity]/index.ts`를 통해 엔티티 public API export
 
-## Phase 5: User Story 3 - [Title] (Priority: P3)
+**기능 (사용자 기능)**:
 
-**Goal**: [Brief description of what this story delivers]
+- [ ] T019 [US1] `features/[feature]/model/`에 기능 모델 생성 (hooks, state, types)
+- [ ] T020 [US1] `features/[feature]/ui/[Component].tsx`에 기능 UI 구현
+- [ ] T021 [US1] `features/[feature]/api/`에 기능 API 통합 추가
+- [ ] T022 [US1] `features/[feature]/lib/`에 기능 유틸리티 생성
+- [ ] T023 [US1] `features/[feature]/index.ts`를 통해 기능 public API export
 
-**Independent Test**: [How to verify this story works on its own]
+**페이지/라우트**:
 
-### Tests for User Story 3 (OPTIONAL - only if tests requested) ⚠️
+- [ ] T024 [US1] `app/[route]/page.tsx`에 Next.js 라우트 생성
+- [ ] T025 [US1] 필요시 `app/[route]/layout.tsx`에 라우트 레이아웃 생성
+- [ ] T026 [US1] widgets/features에서 페이지 구성
 
-- [ ] T024 [P] [US3] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T025 [P] [US3] Integration test for [user journey] in tests/integration/test_[name].py
+**검증**:
 
-### Implementation for User Story 3
+- [ ] T027 [US1] 하위→상위 import 없는지 검증 (상위가 하위 import: pages→widgets→features→entities→shared)
+- [ ] T028 [US1] TypeScript strict 모드 준수 검증
+- [ ] T029 [US1] ESLint 실행 및 위반사항 수정
 
-- [ ] T026 [P] [US3] Create [Entity] model in src/models/[entity].py
-- [ ] T027 [US3] Implement [Service] in src/services/[service].py
-- [ ] T028 [US3] Implement [endpoint/feature] in src/[location]/[file].py
-
-**Checkpoint**: All user stories should now be independently functional
-
----
-
-[Add more user story phases as needed, following the same pattern]
-
----
-
-## Phase N: Polish & Cross-Cutting Concerns
-
-**Purpose**: Improvements that affect multiple user stories
-
-- [ ] TXXX [P] Documentation updates in docs/
-- [ ] TXXX Code cleanup and refactoring
-- [ ] TXXX Performance optimization across all stories
-- [ ] TXXX [P] Additional unit tests (if requested) in tests/unit/
-- [ ] TXXX Security hardening
-- [ ] TXXX Run quickstart.md validation
+**체크포인트**: 이 시점에서 사용자 스토리 1은 완전히 작동하고 독립적으로 테스트 가능해야 함
 
 ---
 
-## Dependencies & Execution Order
+## Phase 4: 사용자 스토리 2 - [제목] (우선순위: P2)
 
-### Phase Dependencies
+**목표**: [이 스토리가 제공하는 것에 대한 간단한 설명]
 
-- **Setup (Phase 1)**: No dependencies - can start immediately
-- **Foundational (Phase 2)**: Depends on Setup completion - BLOCKS all user stories
-- **User Stories (Phase 3+)**: All depend on Foundational phase completion
-  - User stories can then proceed in parallel (if staffed)
-  - Or sequentially in priority order (P1 → P2 → P3)
-- **Polish (Final Phase)**: Depends on all desired user stories being complete
+**독립 테스트**: [이 스토리가 독립적으로 작동하는지 검증하는 방법]
 
-### User Story Dependencies
+### 사용자 스토리 2 테스트 (선택사항 - 테스트가 요청된 경우에만) ⚠️
 
-- **User Story 1 (P1)**: Can start after Foundational (Phase 2) - No dependencies on other stories
-- **User Story 2 (P2)**: Can start after Foundational (Phase 2) - May integrate with US1 but should be independently testable
-- **User Story 3 (P3)**: Can start after Foundational (Phase 2) - May integrate with US1/US2 but should be independently testable
+- [ ] T030 [P] [US2] `features/[feature]/ui/__tests__/`에 [Feature UI]의 컴포넌트 테스트
+- [ ] T031 [P] [US2] `app/api/[route]/__tests__/`에 API 라우트 테스트
 
-### Within Each User Story
+### 사용자 스토리 2 구현
 
-- Tests (if included) MUST be written and FAIL before implementation
-- Models before services
-- Services before endpoints
-- Core implementation before integration
-- Story complete before moving to next priority
+**엔티티**: [새로운 엔티티가 필요한 경우]
 
-### Parallel Opportunities
+- [ ] T032 [P] [US2] FSD 구조를 따라 `entities/[entity]/`에 [Entity] 생성
 
-- All Setup tasks marked [P] can run in parallel
-- All Foundational tasks marked [P] can run in parallel (within Phase 2)
-- Once Foundational phase completes, all user stories can start in parallel (if team capacity allows)
-- All tests for a user story marked [P] can run in parallel
-- Models within a story marked [P] can run in parallel
-- Different user stories can be worked on in parallel by different team members
+**기능**:
+
+- [ ] T033 [US2] `features/[feature]/model/`에 기능 모델 생성
+- [ ] T034 [US2] `features/[feature]/ui/`에 기능 UI 구현
+- [ ] T035 [US2] `features/[feature]/index.ts`를 통해 기능 public API export
+
+**페이지/라우트**:
+
+- [ ] T036 [US2] `app/[route]/page.tsx`에 라우트 생성/업데이트
+- [ ] T037 [US2] 필요시 사용자 스토리 1과 통합 (public API를 통해서만)
+
+**검증**:
+
+- [ ] T038 [US2] FSD 준수 및 TypeScript strict 모드 검증
+
+**체크포인트**: 이 시점에서 사용자 스토리 1과 2가 모두 독립적으로 작동해야 함
 
 ---
 
-## Parallel Example: User Story 1
+## Phase 5: 사용자 스토리 3 - [제목] (우선순위: P3)
+
+**목표**: [이 스토리가 제공하는 것에 대한 간단한 설명]
+
+**독립 테스트**: [이 스토리가 독립적으로 작동하는지 검증하는 방법]
+
+### 사용자 스토리 3 테스트 (선택사항 - 테스트가 요청된 경우에만) ⚠️
+
+- [ ] T039 [P] [US3] `features/[feature]/ui/__tests__/`에 컴포넌트 테스트
+- [ ] T040 [P] [US3] [user journey]의 통합 테스트
+
+### 사용자 스토리 3 구현
+
+- [ ] T041 [P] [US3] FSD 구조를 따라 entities/features 생성
+- [ ] T042 [US3] 기능 로직 및 UI 구현
+- [ ] T043 [US3] `app/`에 라우트 생성/업데이트
+- [ ] T044 [US3] FSD 준수 검증
+
+**체크포인트**: 모든 사용자 스토리가 이제 독립적으로 작동해야 함
+
+---
+
+[필요에 따라 동일한 패턴으로 더 많은 사용자 스토리 단계 추가]
+
+---
+
+## Phase N: 마무리 및 횡단 관심사
+
+**목적**: 여러 사용자 스토리에 영향을 미치는 개선사항
+
+- [ ] TXXX [P] `docs/`에 문서 업데이트
+- [ ] TXXX 코드 정리 및 리팩토링
+- [ ] TXXX 모든 스토리에 걸친 성능 최적화
+- [ ] TXXX [P] (요청된 경우) `tests/unit/`에 추가 단위 테스트
+- [ ] TXXX 보안 강화
+- [ ] TXXX quickstart.md 검증 실행
+
+---
+
+## 의존성 및 실행 순서
+
+### Phase 의존성
+
+- **설정 (Phase 1)**: 의존성 없음 - 즉시 시작 가능
+- **기반 (Phase 2)**: 설정 완료에 의존 - 모든 사용자 스토리를 차단
+- **사용자 스토리 (Phase 3+)**: 모두 기반 단계 완료에 의존
+  - 이후 사용자 스토리는 병렬로 진행 가능 (인력이 있는 경우)
+  - 또는 우선순위 순서로 순차적으로 (P1 → P2 → P3)
+- **마무리 (최종 Phase)**: 원하는 모든 사용자 스토리가 완료되는 것에 의존
+
+### 사용자 스토리 의존성
+
+- **사용자 스토리 1 (P1)**: 기반 (Phase 2) 이후 시작 가능 - 다른 스토리에 대한 의존성 없음
+- **사용자 스토리 2 (P2)**: 기반 (Phase 2) 이후 시작 가능 - US1과 통합될 수 있지만 독립적으로 테스트 가능해야 함
+- **사용자 스토리 3 (P3)**: 기반 (Phase 2) 이후 시작 가능 - US1/US2와 통합될 수 있지만 독립적으로 테스트 가능해야 함
+
+### 각 사용자 스토리 내에서
+
+- 테스트(포함된 경우)는 반드시 작성되고 구현 전에 실패해야 함
+- 서비스 전에 모델
+- 엔드포인트 전에 서비스
+- 통합 전에 핵심 구현
+- 다음 우선순위로 넘어가기 전에 스토리 완료
+
+### 병렬 처리 기회
+
+- [P]로 표시된 모든 설정 태스크는 병렬 실행 가능
+- [P]로 표시된 모든 기반 태스크는 병렬 실행 가능 (Phase 2 내에서)
+- 기반 단계가 완료되면, 모든 사용자 스토리를 병렬로 시작 가능 (팀 역량이 허용하는 경우)
+- [P]로 표시된 사용자 스토리의 모든 테스트는 병렬 실행 가능
+- [P]로 표시된 스토리 내의 모델은 병렬 실행 가능
+- 다른 사용자 스토리를 다른 팀원이 병렬로 작업 가능
+
+---
+
+## 병렬 처리 예시: 사용자 스토리 1
 
 ```bash
-# Launch all tests for User Story 1 together (if tests requested):
-Task: "Contract test for [endpoint] in tests/contract/test_[name].py"
-Task: "Integration test for [user journey] in tests/integration/test_[name].py"
+# 사용자 스토리 1의 모든 테스트를 함께 시작 (테스트가 요청된 경우):
+태스크: "`features/[feature]/ui/__tests__/`에 [Feature UI]의 컴포넌트 테스트"
+태스크: "`app/api/[route]/__tests__/`에 API 라우트 테스트"
 
-# Launch all models for User Story 1 together:
-Task: "Create [Entity1] model in src/models/[entity1].py"
-Task: "Create [Entity2] model in src/models/[entity2].py"
+# 사용자 스토리 1의 모든 모델을 함께 시작:
+태스크: "`entities/[entity]/model/types.ts`에 [Entity1] 타입 생성"
+태스크: "`entities/[entity]/model/types.ts`에 [Entity2] 타입 생성"
 ```
 
 ---
 
-## Implementation Strategy
+## 구현 전략
 
-### MVP First (User Story 1 Only)
+### MVP 우선 (사용자 스토리 1만)
 
-1. Complete Phase 1: Setup
-2. Complete Phase 2: Foundational (CRITICAL - blocks all stories)
-3. Complete Phase 3: User Story 1
-4. **STOP and VALIDATE**: Test User Story 1 independently
-5. Deploy/demo if ready
+1. Phase 1 완료: 설정
+2. Phase 2 완료: 기반 (중요 - 모든 스토리 차단)
+3. Phase 3 완료: 사용자 스토리 1
+4. **중지 및 검증**: 사용자 스토리 1을 독립적으로 테스트
+5. 준비되면 배포/데모
 
-### Incremental Delivery
+### 점진적 전달
 
-1. Complete Setup + Foundational → Foundation ready
-2. Add User Story 1 → Test independently → Deploy/Demo (MVP!)
-3. Add User Story 2 → Test independently → Deploy/Demo
-4. Add User Story 3 → Test independently → Deploy/Demo
-5. Each story adds value without breaking previous stories
+1. 설정 + 기반 완료 → 기반 준비됨
+2. 사용자 스토리 1 추가 → 독립적으로 테스트 → 배포/데모 (MVP!)
+3. 사용자 스토리 2 추가 → 독립적으로 테스트 → 배포/데모
+4. 사용자 스토리 3 추가 → 독립적으로 테스트 → 배포/데모
+5. 각 스토리는 이전 스토리를 깨뜨리지 않고 가치를 추가
 
-### Parallel Team Strategy
+### 병렬 팀 전략
 
-With multiple developers:
+여러 개발자가 있는 경우:
 
-1. Team completes Setup + Foundational together
-2. Once Foundational is done:
-   - Developer A: User Story 1
-   - Developer B: User Story 2
-   - Developer C: User Story 3
-3. Stories complete and integrate independently
+1. 팀이 함께 설정 + 기반 완료
+2. 기반이 완료되면:
+   - 개발자 A: 사용자 스토리 1
+   - 개발자 B: 사용자 스토리 2
+   - 개발자 C: 사용자 스토리 3
+3. 스토리가 독립적으로 완료되고 통합됨
 
 ---
 
-## Notes
+## 참고사항
 
-- [P] tasks = different files, no dependencies
-- [Story] label maps task to specific user story for traceability
-- Each user story should be independently completable and testable
-- Verify tests fail before implementing
-- Commit after each task or logical group
-- Stop at any checkpoint to validate story independently
-- Avoid: vague tasks, same file conflicts, cross-story dependencies that break independence
+- [P] 태스크 = 다른 파일/레이어, 의존성 없음
+- [Story] 라벨은 추적을 위해 태스크를 특정 사용자 스토리에 매핑
+- 각 사용자 스토리는 독립적으로 완료 및 테스트 가능해야 함
+- FSD 레이어 순서: shared ← entities ← features ← widgets ← pages ← app (화살표 방향으로 import 가능, 역방향 금지)
+- 모든 코드는 TypeScript strict 모드 사용
+- index 파일을 통해 public API export
+- 구현 전에 테스트가 실패하는지 검증
+- 각 태스크 또는 논리적 그룹 후에 커밋
+- 체크포인트에서 중지하여 스토리를 독립적으로 검증
+- 피해야 할 것: 모호한 태스크, 하위→상위 레이어 import, 순환 의존성, 정당화되지 않은 `any` 타입
