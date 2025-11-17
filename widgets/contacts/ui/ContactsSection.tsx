@@ -40,15 +40,28 @@ export const ContactsSection = () => {
         <p className='mb-8 text-lg text-gray-600 dark:text-gray-300'>
           프로젝트 협업이나 새로운 기회에 관심이 있으시다면 언제든 연락해주세요.
         </p>
-        <Link
-          href={siteConfig.githubUrl}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <Button size='lg' variant='primary'>
-            GitHub 프로필 보기
-          </Button>
-        </Link>
+        <div className='flex flex-col md:flex-row gap-4 justify-center'>
+          <Link
+            href={siteConfig.githubUrl}
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <Button size='lg' variant='primary'>
+              GitHub 프로필 보기
+            </Button>
+          </Link>
+          {siteConfig.resumeUrl && (
+            <Link
+              href={siteConfig.resumeUrl}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <Button size='lg' variant='secondary'>
+                이력서 보기
+              </Button>
+            </Link>
+          )}
+        </div>
       </div>
     </Section>
   );
