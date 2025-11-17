@@ -16,7 +16,7 @@ export const SKILLS: Skill[] = [
   {
     id: 'zustand',
     name: 'Zustand',
-    iconUrl: 'https://cdn.simpleicons.org/zustand/000000',
+    iconUrl: '/images/skills/zustand_icon.png',
     level: 'advanced',
   },
   {
