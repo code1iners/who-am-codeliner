@@ -19,7 +19,23 @@ export default function Home() {
     jobTitle: 'Front-End Developer',
     description: siteConfig.description,
     sameAs: [siteConfig.githubUrl],
-    knowsAbout: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS'],
+    knowsAbout: [
+      'React',
+      'TypeScript',
+      'Next.js',
+      'Tailwind CSS',
+      'GSAP',
+      'Zustand',
+      'TanStack Query',
+    ],
+    worksFor: {
+      '@type': 'Organization',
+      name: 'Freelance',
+    },
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'KR',
+    },
   };
 
   return (

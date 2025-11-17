@@ -15,11 +15,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: siteConfig.title,
   description: siteConfig.description,
   keywords: [...siteConfig.keywords],
   authors: [{ name: siteConfig.name }],
   creator: siteConfig.name,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
     type: 'website',
     locale: 'ko_KR',
@@ -41,6 +53,12 @@ export const metadata: Metadata = {
     title: siteConfig.title,
     description: siteConfig.description,
     images: [`${siteConfig.url}/images/og-image.png`],
+  },
+  alternates: {
+    canonical: siteConfig.url,
+  },
+  verification: {
+    google: 'OEUWcm_HPxO4XWaU4_jOv5Uw44QnUhI8y09LxiCBG8E', // Google Search Console에서 발급받은 코드
   },
 };
 
