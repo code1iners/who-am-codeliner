@@ -77,7 +77,7 @@ export const HeroSection = () => {
           </h1>
           <p
             ref={subtitleRef}
-            className='text-xl font-medium text-blue-600 dark:text-blue-400'
+            className='text-4xl font-medium text-white dark:text-gray-100'
           >
             {PORTFOLIO_DATA.title}
           </p>
